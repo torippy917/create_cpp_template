@@ -61,13 +61,13 @@ int main(int argc, char *argv[])
 		return 4;
 	}
 
-	std::string date = std::to_string(now.tm_year) + std::to_string(now.tm_mon) + std::to_string(now.tm_mday);
+	std::string date = std::to_string(now.tm_year + 1900) + "/" + std::to_string(now.tm_mon + 1) + "/" + std::to_string(now.tm_mday);
 
 	std::string hpp_template =
 		"#ifndef " + include_guard + "\n"
 		"#define " + include_guard + "\n"
 		"/*******************************************\n"
-		" * " + file_name + "ver1.0 " + date + "\n"
+		" * " + file_name + " ver1.0 " + date + "\n"
 		" * This program is ...\n"
 		" *\n"
 		" * [Dependency]\n"
@@ -78,8 +78,9 @@ int main(int argc, char *argv[])
 		" * Yuta Uehara\n"
 		" *\n"
 		" * [Change history]\n"
-		" * ver1.0 " + date + "The first version\n"
-		" ******************************************/\n";
+		" * ver1.0 " + date + " The first version\n"
+		" ******************************************/\n"
+		"#endif //" + include_guard + "\n";
 
 	std::ofstream writing_hpp_file;
 	std::ofstream writing_cpp_file;
@@ -93,7 +94,7 @@ int main(int argc, char *argv[])
 	}
 	else {
 		writing_hpp_file << hpp_template;
-		writing_cpp_file << "#include " + file_name + ".hpp //ver1.0\n";
+		writing_cpp_file << "#include \"" + file_name + ".hpp\" //ver1.0\n";
 	}
 
 	writing_cpp_file.close();
