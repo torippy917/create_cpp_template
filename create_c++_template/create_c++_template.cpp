@@ -14,6 +14,8 @@ bool fileExists(std::string str);
 
 int main(int argc, char *argv[])
 {
+	unsigned char bom[3] = { 0xEF, 0xBB, 0xBF };
+
 	std::string file_name;
 	std::string file_dir;
 
@@ -93,7 +95,9 @@ int main(int argc, char *argv[])
 		return 5;
 	}
 	else {
+		writing_hpp_file << bom;
 		writing_hpp_file << hpp_template;
+		writing_cpp_file << bom;
 		writing_cpp_file << "#include \"" + file_name + ".hpp\" //ver1.0\n";
 	}
 
