@@ -14,7 +14,7 @@ bool fileExists(std::string str);
 
 int main(int argc, char *argv[])
 {
-	unsigned char bom[3] = { 0xEF, 0xBB, 0xBF };
+	std::string bom = { char(0xEF), char(0xBB), char(0xBF) };
 
 	std::string file_name;
 	std::string file_dir;
