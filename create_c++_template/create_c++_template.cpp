@@ -14,7 +14,7 @@ bool fileExists(std::string str);
 
 int main(int argc, char *argv[])
 {
-	std::string bom = { char(0xEF), char(0xBB), char(0xBF) };
+	//std::string bom = { char(0xEF), char(0xBB), char(0xBF) };
 
 	std::string file_name;
 	std::string file_dir;
@@ -51,8 +51,6 @@ int main(int argc, char *argv[])
 		return 3;
 	}
 
-	std::string include_guard = str_toupper(file_name + "_HPP");
-
 	time_t t = time(NULL);
 	tm now;
 	errno_t error;
@@ -66,8 +64,7 @@ int main(int argc, char *argv[])
 	std::string date = std::to_string(now.tm_year + 1900) + "/" + std::to_string(now.tm_mon + 1) + "/" + std::to_string(now.tm_mday);
 
 	std::string hpp_template =
-		"#ifndef " + include_guard + "\n"
-		"#define " + include_guard + "\n"
+		"#pragma once\n"
 		"/*******************************************\n"
 		" * " + file_name + " ver1.0 " + date + "\n"
 		" * This program is ...\n"
@@ -81,8 +78,7 @@ int main(int argc, char *argv[])
 		" *\n"
 		" * [Change history]\n"
 		" * ver1.0 " + date + " The first version\n"
-		" ******************************************/\n"
-		"#endif //" + include_guard + "\n";
+		" ******************************************/\n";
 
 	std::ofstream writing_hpp_file;
 	std::ofstream writing_cpp_file;
@@ -95,9 +91,9 @@ int main(int argc, char *argv[])
 		return 5;
 	}
 	else {
-		writing_hpp_file << bom;
+		//writing_hpp_file << bom;
 		writing_hpp_file << hpp_template;
-		writing_cpp_file << bom;
+		//writing_cpp_file << bom;
 		writing_cpp_file << "#include \"" + file_name + ".hpp\" //ver1.0\n";
 	}
 
